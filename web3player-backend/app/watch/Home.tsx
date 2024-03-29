@@ -42,12 +42,14 @@ function Page() {
       if (id) {
         get(id);
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id])
 
     useEffect(() => {
       if (content) {
         setContentJson(JSON.parse(content))
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [content])
 
     
