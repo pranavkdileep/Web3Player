@@ -6,7 +6,7 @@ import { finalizeEvent, generateSecretKey, getEventHash, getPublicKey, verifyEve
 import { Relay } from 'nostr-tools/relay'
 import * as nip19 from 'nostr-tools/nip19'
 import { Uploader } from "@/components/uploader";
-
+import { create } from "@web3-storage/w3up-client";
 
 export default function Home() {
   
