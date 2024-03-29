@@ -5,7 +5,7 @@ import { useState,useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 
 
-function page() {
+function Page() {
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
   console.log(id)
@@ -63,4 +63,4 @@ function page() {
   )
 }
 
-export default page
+export default Page
