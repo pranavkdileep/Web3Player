@@ -36,6 +36,7 @@ export default function Home() {
     console.log(eventHash)
     console.log(event)
     await (await relay).publish(event)
+    return eventHash
   }
   const get = async (id:string) => {
     const sub = (await relay).subscribe([
@@ -57,23 +58,20 @@ export default function Home() {
     //publish("my kk");
     //get('c0247ae5c53053947aa575ff8446aecf6f58ab3c0e2c0d14e24ad89c9746e01a');
   }, [])
-  const publishcontent = (data:string) => {
-    console.log(data)
-  }
   
-  const upload_video = async (video_file:File) => {
-    const filelinke:File[] = [video_file];
-
-    const client = await create()
-    await client.login('pkdartyt@gmail.com')
-    await client.setCurrentSpace('did:key:z6Mko6QdMUzEm4cRoEELwE4EdFxiDCRberRo2q8K24bhKVeS')
-    const cid = await client.uploadDirectory(filelinke) 
-    console.log(cid.toString())
-    return cid.toString()
+  
+  const content_to_json_to_text_and_publish = async (title:string,description:string,videourl:string) => {
+    const content = JSON.stringify({
+      title: title,
+      description: description,
+      video: videourl
+    })
+    const eventHash = await publish(content)
+    return eventHash  
   }
   return (
     <main >
-      <Uploader videopublisher={upload_video} />
+      <Uploader videopublisher={content_to_json_to_text_and_publish} />
     </main>
   );
 }
