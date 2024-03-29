@@ -79,7 +79,7 @@ export function Uploader({videopublisher}:any) {
             Video Url
           </h2>
           <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-            {"https://web3player.vercel.app/watch?id="+video_id}
+            {"https://web3-player.vercel.app/watch?id="+video_id}
           </p>
           </div>
         )}
