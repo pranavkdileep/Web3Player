@@ -1,7 +1,7 @@
 "use client";
 
 import  {Relay} from 'nostr-tools/relay'
-import { useState,useEffect,Suspense } from 'react'
+import { useState,useEffect } from 'react'
 import { useSearchParams } from 'next/navigation';  
 
 
