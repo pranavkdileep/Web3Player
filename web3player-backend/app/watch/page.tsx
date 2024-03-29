@@ -1,7 +1,7 @@
 "use client";
-import React, { use } from 'react'
+
 import  {Relay} from 'nostr-tools/relay'
-import { useState,useEffect } from 'react'
+import { useState,useEffect,Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 
 
@@ -55,11 +55,13 @@ function Page() {
     
        
   return (
+    <Suspense fallback={<div>Loading...</div>}> 
     <div> 
       <p>Title : {contentJson.title}</p>
       <p>Descrption  : {contentJson.description} </p>
       <p>Video  :  {contentJson.video}</p>
       </div>
+    </Suspense>
   )
 }
 
