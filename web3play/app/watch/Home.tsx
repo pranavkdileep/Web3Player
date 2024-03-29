@@ -61,7 +61,11 @@ function Page() {
     <div> 
       <p>Title : {contentJson.title}</p>
       <p>Descrption  : {contentJson.description} </p>
-      <p>Video  :  {contentJson.video}</p>
+      <p></p>
+      <video controls>
+        <source src="{contentJson.video}" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       </div>
     
   )
