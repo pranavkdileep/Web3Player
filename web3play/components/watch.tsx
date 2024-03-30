@@ -5,15 +5,19 @@
 
 import { JSX, SVGProps } from "react"
 import Video from 'next-video';
-
+import { uploadLocalFile } from "next-video/dist/handlers/local-upload.js";
+import { useRouter } from "next/navigation";
 
 export function Watch(details: { title: string, description: string, video: string }) {
+  const router = useRouter();
   return (
     <div key="1" className="bg-white">
       <header className="flex items-center justify-between p-4 border-b border-gray-200">
         <h1 className="text-xl font-bold">Web3Play</h1>
         <div className="flex space-x-4">
-          <UploadIcon className="text-gray-600" />
+          <UploadIcon className="text-gray-600" onClick={() => {
+           router.push('/upload')
+          }} />
         </div>
       </header>
       <main className="px-4 py-2">
