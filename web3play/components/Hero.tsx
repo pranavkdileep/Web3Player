@@ -21,7 +21,7 @@ export default function Hero() {
               <span className="sr-only">Tube3</span>
               <img
                 className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                src="/logo.png"
                 alt=""
               />
             </a>
