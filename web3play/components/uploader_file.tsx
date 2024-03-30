@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import axios from 'axios';
+import { Progress } from "@material-tailwind/react";
 
 export function Up({ videopublisher }: any) {
   const [title, setTitle] = useState("");
@@ -38,18 +39,18 @@ export function Up({ videopublisher }: any) {
           'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDk0NzJjNDY5ZmE4M2M3M0I0YzI2RTQyYThiZjE0NjBkOWFjZWJBNTAiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY5NzgwOTk0ODI2NSwibmFtZSI6Ik5mdCJ9.QNuy4oFt9-fOtksUUe0lcswL4UAuhEZMyXgfFOilTuY', // Replace with your API key
         },
         onUploadProgress: progressEvent => {
-          const progress = progressEvent.total 
-  ? Math.round((progressEvent.loaded / progressEvent.total) * 100)
-  : 0;
+          const progress = progressEvent.total
+            ? Math.round((progressEvent.loaded / progressEvent.total) * 100)
+            : 0;
           setUploadProgress(progress);
         },
       });
 
       const videoUrlcid = response.data.value.cid;
       const videoid = `https://${videoUrlcid}.ipfs.w3s.link/${file.name}`;
-      
+
       setvidis(videoid);
-      console.log('Video uploaded:', videoid);  
+      console.log('Video uploaded:', videoid);
     } catch (error) {
       console.error('Error uploading file:', error);
     }
@@ -64,7 +65,7 @@ export function Up({ videopublisher }: any) {
   };
 
   return (
-    <div className="flex flex-col min-h-screen dark:bg-gray-900">
+    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
       <header className="py-4 bg-gray-800 text-white text-center dark:bg-gray-900">
         <h1 className="text-3xl font-bold">Video Uploader</h1>
@@ -106,31 +107,89 @@ export function Up({ videopublisher }: any) {
                 />
               </div>
               <div>
-                <Label htmlFor="file">Video File</Label>
-                <input
+                <Label htmlFor="file" className="dark:text-white">Video File</Label>
+                {/* <input
                   className="input-style"
                   id="file"
                   type="file"
                   accept="video/*"
                   onChange={handleFileChange}
-                />
+                /> */}
+                <label htmlFor="file" className="sr-only">Choose file</label>
+                <input type="file" name="file-input" className="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600
+    file:bg-gray-50 file:border-0
+    file:me-4
+    file:py-3 file:px-4
+    dark:file:bg-gray-700 dark:file:text-gray-400"
+                  id="file"
+
+                  accept="video/*"
+                  onChange={handleFileChange}
+                ></input>
               </div>
             </div>
-            <div>
+            {uploadProgress <= 0 && (
+              <div>
               <Button className="w-full" onClick={handleUpload} type="button">
                 Upload
               </Button>
             </div>
+            )}
+            
+            {uploadProgress > 0 && uploadProgress < 100 && (
+            //   <progress 
+            //   value={uploadProgress} 
+            //   max="100" 
+            //   className="w-full h-2 bg-gray-200 rounded"
+            // >
+            //   {uploadProgress}
+            // </progress>
+            <div className="rounded-md dark:bg-slate-400 ">
+      <Progress value={uploadProgress} className="rounded-md dark:bg-slate-400" size="lg" label="Complete" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+      
+    </div>
+
+
+            )}
+            {uploadProgress == 100 && !videourl && (
+            //   <progress 
+            //   value={uploadProgress} 
+            //   max="100" 
+            //   className="w-full h-2 bg-gray-200 rounded"
+            // >
+            //   {uploadProgress}
+            // </progress>
+            <div className="rounded-md dark:bg-slate-400 ">
+      <Progress value={uploadProgress} className="rounded-md dark:bg-slate-400" size="lg" label="Processing.." placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+      
+    </div>
+
+
+            )}
+            {videourl && (
+            //   <progress 
+            //   value={uploadProgress} 
+            //   max="100" 
+            //   className="w-full h-2 bg-gray-200 rounded"
+            // >
+            //   {uploadProgress}
+            // </progress>
+            <div className="rounded-md dark:bg-slate-400 ">
+      <Progress value={uploadProgress} className="rounded-md dark:bg-slate-400" size="lg" label="Ready To Publish" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+      
+    </div>
+
+
+            )}
             <div>
               {videourl && (
                 <Button className="w-full" onClick={handlePublish} type="button">
                   Publish
                 </Button>
-                )}
+              )}
             </div>
-            {uploadProgress > 0 && (
-              <progress value={uploadProgress} max="100" className="w-full mt-4"></progress>
-            )}
+
+
           </form>
 
           {video_id && (
@@ -151,7 +210,7 @@ export function Up({ videopublisher }: any) {
 
       {/* Footer */}
       <footer className="py-4 bg-gray-800 text-white text-center dark:bg-gray-900">
-        <p>&copy; 2024 Your Company. All rights reserved.</p>
+        <p>&copy; 2024 PKD. Made With ❤️ PKD</p>
       </footer>
     </div>
   );
