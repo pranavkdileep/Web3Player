@@ -68,7 +68,7 @@ export function Up({ videopublisher }: any) {
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
       <header className="py-4 bg-gray-800 text-white text-center dark:bg-gray-900">
-        <h1 className="text-3xl font-bold">Video Uploader</h1>
+        <h1 className="text-3xl font-bold">Tube-3 Uploader</h1>
       </header>
 
       {/* Main content */}

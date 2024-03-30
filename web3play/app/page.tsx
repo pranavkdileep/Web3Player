@@ -6,6 +6,7 @@ import { finalizeEvent, generateSecretKey, getEventHash, getPublicKey, verifyEve
 import { Relay } from 'nostr-tools/relay'
 import * as nip19 from 'nostr-tools/nip19'
 import { Uploader } from "@/components/uploader";
+import Hero from "@/components/Hero";
 
 
 export default function Home() {
@@ -71,7 +72,8 @@ export default function Home() {
   }
   return (
     <main >
-      <Uploader videopublisher={content_to_json_to_text_and_publish} />
+      {/* <Uploader videopublisher={content_to_json_to_text_and_publish} /> */}
+    <Hero />
     </main>
   );
 }

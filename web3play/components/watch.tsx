@@ -13,7 +13,7 @@ export function Watch(details: { title: string, description: string, video: stri
   return (
     <div key="1" className="bg-white">
       <header className="flex items-center justify-between p-4 border-b border-gray-200">
-        <h1 className="text-xl font-bold">Web3Play</h1>
+        <h1 className="text-xl font-bold">Tube-3 Play</h1>
         <div className="flex space-x-4">
           <UploadIcon className="text-gray-600" onClick={() => {
            router.push('/upload')
