@@ -1,19 +1,51 @@
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import axios from 'axios';
 
 export function Up({ videopublisher }: any) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [video, setVideo] = useState("");
+  const [file, setFile] = useState<File | null>(null);
   const [video_id, setVideo_id] = useState("");
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [copied, setCopied] = useState(false);
 
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files ? event.target.files[0] : null;
+    setFile(selectedFile);
+  };
+
   const handleUpload = async () => {
-    const videoid = await videopublisher(title, description, video, setVideo_id);
-    setVideo_id(videoid);
+    if (!file) {
+      console.error("No file selected.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await axios.post('https://api.nft.storage/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDk0NzJjNDY5ZmE4M2M3M0I0YzI2RTQyYThiZjE0NjBkOWFjZWJBNTAiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY5NzgwOTk0ODI2NSwibmFtZSI6Ik5mdCJ9.QNuy4oFt9-fOtksUUe0lcswL4UAuhEZMyXgfFOilTuY', // Replace with your API key
+        },
+        onUploadProgress: progressEvent => {
+          const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
+          setUploadProgress(progress);
+        },
+      });
+
+      const videoUrlcid = response.data.value.cid;
+      const videoid = `https://${videoUrlcid}.ipfs.w3s.link/${file.name}`;
+      const setvidis= videopublisher(title, description, videoid);
+      setVideo_id(setvidis);
+      console.log('Video uploaded:', videoid);  
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
   };
 
   const copyToClipboard = () => {
@@ -57,23 +89,23 @@ export function Up({ videopublisher }: any) {
               </div>
               <div>
                 <Label htmlFor="description" className="dark:text-white">Description</Label>
-                <Textarea
+                <Input
                   className="input-style dark:text-white"
                   id="description"
                   required
+                  type="text"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
               <div>
-                <Label htmlFor="video">Video URL</Label>
-                <Input
+                <Label htmlFor="file">Video File</Label>
+                <input
                   className="input-style"
-                  id="video"
-                  required
-                  type="text"
-                  value={video}
-                  onChange={(e) => setVideo(e.target.value)}
+                  id="file"
+                  type="file"
+                  accept="video/*"
+                  onChange={handleFileChange}
                 />
               </div>
             </div>
@@ -82,6 +114,9 @@ export function Up({ videopublisher }: any) {
                 Upload
               </Button>
             </div>
+            {uploadProgress > 0 && (
+              <progress value={uploadProgress} max="100" className="w-full mt-4"></progress>
+            )}
           </form>
 
           {video_id && (
