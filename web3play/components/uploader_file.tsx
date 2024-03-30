@@ -33,7 +33,9 @@ export function Up({ videopublisher }: any) {
           'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDk0NzJjNDY5ZmE4M2M3M0I0YzI2RTQyYThiZjE0NjBkOWFjZWJBNTAiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY5NzgwOTk0ODI2NSwibmFtZSI6Ik5mdCJ9.QNuy4oFt9-fOtksUUe0lcswL4UAuhEZMyXgfFOilTuY', // Replace with your API key
         },
         onUploadProgress: progressEvent => {
-          const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
+          const progress = progressEvent.total 
+  ? Math.round((progressEvent.loaded / progressEvent.total) * 100)
+  : 0;
           setUploadProgress(progress);
         },
       });
