@@ -3,7 +3,8 @@
 import  {Relay} from 'nostr-tools/relay'
 import { useState,useEffect } from 'react'
 import { useSearchParams } from 'next/navigation';  
-import Video from 'next-video';
+
+import { Watch } from '@/components/watch';
 
 function Page() {
   const searchParams = useSearchParams();
@@ -57,16 +58,12 @@ function Page() {
     
        
   return (
-    
     <div> 
-      <p>Title : {contentJson.title}</p>
-      <p>Descrption  : {contentJson.description} </p>
-      <p></p>
+      
       {contentJson.video && (
-      <Video src={contentJson.video} />
+        <Watch title={contentJson.title} description={contentJson.description} video={contentJson.video} />
       )}
-      </div>
-    
+    </div>
   )
 }
 
