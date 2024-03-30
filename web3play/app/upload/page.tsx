@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { finalizeEvent, generateSecretKey, getEventHash, getPublicKey, verifyEvent } from "nostr-tools/pure";
 import { Relay } from 'nostr-tools/relay'
 import * as nip19 from 'nostr-tools/nip19'
-import { Uploader } from "@/components/uploader";
+import { Up } from "@/components/uploader_file";
 
 
 export default function Home() {
@@ -71,7 +71,7 @@ export default function Home() {
   }
   return (
     <main >
-      <Uploader videopublisher={content_to_json_to_text_and_publish} />
+      <Up videopublisher={content_to_json_to_text_and_publish} />
     </main>
   );
 }

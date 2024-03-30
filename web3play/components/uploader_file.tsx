@@ -4,7 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
-export function Uploader({ videopublisher }: any) {
+export function Up({ videopublisher }: any) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [video, setVideo] = useState("");
