@@ -12,7 +12,7 @@ export function Uploader({ videopublisher }: any) {
   const [copied, setCopied] = useState(false);
 
   const handleUpload = async () => {
-    const videoid = await videopublisher(title, description, video, setVideo_id);
+    const videoid = await videopublisher(title, description, video);
     setVideo_id(videoid);
   };
 

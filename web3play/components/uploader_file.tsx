@@ -11,10 +11,15 @@ export function Up({ videopublisher }: any) {
   const [video_id, setVideo_id] = useState("");
   const [uploadProgress, setUploadProgress] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [videourl, setvidis] = useState("");
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files ? event.target.files[0] : null;
     setFile(selectedFile);
+  };
+  const handlePublish = async () => {
+    const videoid = await videopublisher(title, description, videourl);
+    setVideo_id(videoid);
   };
 
   const handleUpload = async () => {
@@ -42,8 +47,8 @@ export function Up({ videopublisher }: any) {
 
       const videoUrlcid = response.data.value.cid;
       const videoid = `https://${videoUrlcid}.ipfs.w3s.link/${file.name}`;
-      const setvidis= videopublisher(title, description, videoid);
-      setVideo_id(setvidis);
+      
+      setvidis(videoid);
       console.log('Video uploaded:', videoid);  
     } catch (error) {
       console.error('Error uploading file:', error);
@@ -115,6 +120,13 @@ export function Up({ videopublisher }: any) {
               <Button className="w-full" onClick={handleUpload} type="button">
                 Upload
               </Button>
+            </div>
+            <div>
+              {videourl && (
+                <Button className="w-full" onClick={handlePublish} type="button">
+                  Publish
+                </Button>
+                )}
             </div>
             {uploadProgress > 0 && (
               <progress value={uploadProgress} max="100" className="w-full mt-4"></progress>
