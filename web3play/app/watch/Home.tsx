@@ -3,7 +3,7 @@
 import  {Relay} from 'nostr-tools/relay'
 import { useState,useEffect } from 'react'
 import { useSearchParams } from 'next/navigation';  
-
+import Video from 'next-video';
 
 function Page() {
   const searchParams = useSearchParams();
@@ -63,10 +63,7 @@ function Page() {
       <p>Descrption  : {contentJson.description} </p>
       <p></p>
       {contentJson.video && (
-      <video controls>
-        <source src={contentJson.video} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      <Video src={contentJson.video} />
       )}
       </div>
     
